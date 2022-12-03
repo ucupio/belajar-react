@@ -1,24 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import ReactDOM from "react-dom";
+import ReactDOMServer from "react-dom/server";
+import "./App.css";
+import RenderComponentToString from "./components/RenderComponentToString";
+import examples from "./data/examples.json";
+import TableExamples from "./examples/TableExamples";
 
 function App() {
+  const html = ReactDOMServer.renderToStaticMarkup(<RenderComponentToString />);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1 className="title">Belajar React</h1>
+      <div
+        style={{
+          display: "flex",
+          margin: "auto",
+          paddingTop: "1rem",
+          width: 1000,
+        }}
+      >
+        <table width={"60%"}>
+          <thead style={{ textAlign: "left" }}>
+            <tr>
+              <th>Judul</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {examples.map((it) => (
+              <tr>
+                <td>{it.title}</td>
+                <td>
+                  <button>Show</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div style={{ width: "40%" }}>
+          <h2>Preview:</h2>
+          <RenderComponentToString />
+          <h2>Code:</h2>
+          <pre>{html}</pre>
+        </div>
+      </div>
+      <div></div>
     </div>
   );
 }
